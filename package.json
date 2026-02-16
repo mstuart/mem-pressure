@@ -1,0 +1,44 @@
+{
+	"name": "mem-pressure",
+	"version": "0.0.0-development",
+	"description": "Monitor Node.js memory usage and emit events when thresholds are exceeded",
+	"license": "MIT",
+	"repository": "mstuart/mem-pressure",
+	"funding": "https://github.com/sponsors/mstuart",
+	"author": {
+		"name": "Mark Stuart",
+		"email": "mstuart@users.noreply.github.com",
+		"url": "https://github.com/mstuart"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"memory",
+		"pressure",
+		"monitor",
+		"heap",
+		"rss",
+		"threshold",
+		"leak",
+		"node"
+	],
+	"devDependencies": {
+		"ava": "^6",
+		"tsd": "^0.31",
+		"xo": "^0.60"
+	}
+}
