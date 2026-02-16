@@ -1,4 +1,3 @@
-import {EventEmitter} from 'node:events';
 import process from 'node:process';
 
 /**
@@ -22,7 +21,7 @@ export function getMemorySnapshot() {
 /**
 Monitor Node.js memory usage and emit events when thresholds are exceeded.
 */
-export default class MemoryMonitor extends EventEmitter {
+export default class MemoryMonitor extends EventTarget {
 	#threshold;
 	#interval;
 	#timer;
@@ -63,7 +62,7 @@ export default class MemoryMonitor extends EventEmitter {
 			const snapshot = getMemorySnapshot();
 
 			if (snapshot.heapUsedRatio >= this.#threshold) {
-				this.emit('pressure', snapshot);
+				this.dispatchEvent(new CustomEvent('pressure', {detail: snapshot}));
 			}
 		}, this.#interval);
 

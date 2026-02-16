@@ -15,9 +15,9 @@ import MemoryMonitor, {getMemorySnapshot} from 'mem-pressure';
 
 const monitor = new MemoryMonitor({threshold: 0.9, interval: 10_000});
 
-monitor.on('pressure', snapshot => {
+monitor.addEventListener('pressure', event => {
 	console.log('Memory pressure detected!');
-	console.log(`Heap usage: ${(snapshot.heapUsedRatio * 100).toFixed(1)}%`);
+	console.log(`Heap usage: ${(event.detail.heapUsedRatio * 100).toFixed(1)}%`);
 });
 
 monitor.start();
@@ -34,7 +34,7 @@ monitor.stop();
 
 ### MemoryMonitor(options?)
 
-Creates a new memory monitor instance. Extends `EventEmitter`.
+Creates a new memory monitor instance. Extends `EventTarget`.
 
 #### options
 
@@ -58,7 +58,7 @@ Polling interval in milliseconds.
 
 ##### `'pressure'`
 
-Emitted when `heapUsed / heapTotal` exceeds the threshold. The listener receives a `MemorySnapshot` object.
+Emitted when `heapUsed / heapTotal` exceeds the threshold. The listener receives a `CustomEvent` with `detail` set to a `MemorySnapshot` object.
 
 #### .start()
 
