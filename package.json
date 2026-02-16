@@ -1,6 +1,6 @@
 {
 	"name": "mem-pressure",
-	"version": "0.0.0-development",
+	"version": "1.0.0",
 	"description": "Monitor Node.js memory usage and emit events when thresholds are exceeded",
 	"license": "MIT",
 	"repository": "mstuart/mem-pressure",
