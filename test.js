@@ -1,7 +1,7 @@
 import test from 'ava';
 import MemoryMonitor, {getMemorySnapshot} from './index.js';
 
-// getMemorySnapshot tests
+// GetMemorySnapshot tests
 
 test('getMemorySnapshot returns all expected fields', t => {
 	const snapshot = getMemorySnapshot();
@@ -90,7 +90,7 @@ test('constructor throws on interval <= 0', t => {
 	});
 });
 
-// start/stop tests
+// Start/stop tests
 
 test('start returns this for chaining', t => {
 	const monitor = new MemoryMonitor();
@@ -130,22 +130,23 @@ test('stop can be called without start', t => {
 // Pressure event test
 
 test('emits pressure event when threshold is low', async t => {
-	const monitor = new MemoryMonitor({threshold: 0, interval: 10});
+	t.timeout(5000);
+	const monitor = new MemoryMonitor({threshold: 0, interval: 50});
 
-	const snapshot = await new Promise(resolve => {
-		monitor.on('pressure', snapshot => {
-			resolve(snapshot);
-		});
+	const detail = await new Promise(resolve => {
+		monitor.addEventListener('pressure', event => {
+			resolve(event.detail);
+		}, {once: true});
 
 		monitor.start();
 	});
 
 	monitor.stop();
 
-	t.is(typeof snapshot.rss, 'number');
-	t.is(typeof snapshot.heapTotal, 'number');
-	t.is(typeof snapshot.heapUsed, 'number');
-	t.is(typeof snapshot.heapUsedRatio, 'number');
+	t.is(typeof detail.rss, 'number');
+	t.is(typeof detail.heapTotal, 'number');
+	t.is(typeof detail.heapUsed, 'number');
+	t.is(typeof detail.heapUsedRatio, 'number');
 });
 
 // Symbol.dispose tests
@@ -153,19 +154,19 @@ test('emits pressure event when threshold is low', async t => {
 test('Symbol.dispose stops monitoring', t => {
 	const monitor = new MemoryMonitor({interval: 10});
 	monitor.start();
-	monitor[Symbol.dispose]();
+	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
 	t.pass();
 });
 
 test('Symbol.dispose can be called multiple times', t => {
 	const monitor = new MemoryMonitor();
 	monitor.start();
-	monitor[Symbol.dispose]();
-	monitor[Symbol.dispose]();
+	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
+	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
 	t.pass();
 });
 
 test('monitor has Symbol.dispose method', t => {
 	const monitor = new MemoryMonitor();
-	t.is(typeof monitor[Symbol.dispose], 'function');
+	t.is(typeof monitor[Symbol.dispose], 'function'); // eslint-disable-line no-use-extend-native/no-use-extend-native
 });

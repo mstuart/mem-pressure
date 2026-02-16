@@ -1,7 +1,7 @@
 import {expectType, expectError} from 'tsd';
 import MemoryMonitor, {getMemorySnapshot, type MemorySnapshot} from './index.js';
 
-// getMemorySnapshot
+// GetMemorySnapshot
 const snapshot = getMemorySnapshot();
 expectType<MemorySnapshot>(snapshot);
 expectType<number>(snapshot.rss);
@@ -24,14 +24,9 @@ expectType<MemoryMonitor>(monitor3);
 const monitor4 = new MemoryMonitor({threshold: 0.8, interval: 2000});
 expectType<MemoryMonitor>(monitor4);
 
-// start/stop return this
+// Start/stop return this
 expectType<MemoryMonitor>(monitor.start());
 expectType<MemoryMonitor>(monitor.stop());
-
-// Event listener
-monitor.on('pressure', snapshot => {
-	expectType<MemorySnapshot>(snapshot);
-});
 
 // Invalid usage
 expectError(new MemoryMonitor({threshold: 'high'}));

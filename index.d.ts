@@ -1,5 +1,3 @@
-import {EventEmitter} from 'node:events';
-
 export type MemorySnapshot = {
 	/**
 	Resident Set Size in bytes.
@@ -49,6 +47,11 @@ export type MemoryMonitorOptions = {
 };
 
 /**
+A `CustomEvent` emitted when memory pressure is detected.
+*/
+export type MemoryPressureEvent = CustomEvent<MemorySnapshot>;
+
+/**
 Monitor Node.js memory usage and emit events when thresholds are exceeded.
 
 @param options - Configuration options.
@@ -59,8 +62,8 @@ import MemoryMonitor from 'mem-pressure';
 
 const monitor = new MemoryMonitor({threshold: 0.9, interval: 10_000});
 
-monitor.on('pressure', snapshot => {
-	console.log('Memory pressure!', snapshot.heapUsedRatio);
+monitor.addEventListener('pressure', event => {
+	console.log('Memory pressure!', event.detail.heapUsedRatio);
 });
 
 monitor.start();
@@ -69,7 +72,7 @@ monitor.start();
 monitor.stop();
 ```
 */
-export default class MemoryMonitor extends EventEmitter {
+export default class MemoryMonitor extends EventTarget {
 	constructor(options?: MemoryMonitorOptions);
 
 	/**
@@ -90,13 +93,6 @@ export default class MemoryMonitor extends EventEmitter {
 	Dispose of the monitor, stopping any active monitoring.
 	*/
 	[Symbol.dispose](): void;
-
-	addListener(event: 'pressure', listener: (snapshot: MemorySnapshot) => void): this;
-	on(event: 'pressure', listener: (snapshot: MemorySnapshot) => void): this;
-	once(event: 'pressure', listener: (snapshot: MemorySnapshot) => void): this;
-	removeListener(event: 'pressure', listener: (snapshot: MemorySnapshot) => void): this;
-	off(event: 'pressure', listener: (snapshot: MemorySnapshot) => void): this;
-	emit(event: 'pressure', snapshot: MemorySnapshot): boolean;
 }
 
 /**
