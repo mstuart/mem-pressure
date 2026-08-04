@@ -92,13 +92,13 @@ export default class MemoryMonitor extends EventTarget {
 	/**
 	Dispose of the monitor, stopping any active monitoring.
 	*/
-	[Symbol.dispose](): void;
+	[Symbol.dispose](): void; // eslint-disable-line unicorn/no-nonstandard-builtin-properties
 }
 
 /**
 Get a snapshot of current memory usage.
 
-@returns The memory snapshot.
+@returns An object with RSS, heap, external, and array buffer memory figures in bytes.
 
 @example
 ```

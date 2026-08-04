@@ -68,7 +68,7 @@ Start monitoring memory usage. Returns `this` for chaining.
 
 Stop monitoring memory usage. Returns `this` for chaining.
 
-#### [Symbol.dispose]\()
+#### `[Symbol.dispose]()`
 
 Calls `.stop()`. Enables use with the `using` declaration.
 

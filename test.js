@@ -106,6 +106,7 @@ test('stop returns this for chaining', t => {
 });
 
 test('start can be called multiple times safely', t => {
+	t.plan(1);
 	const monitor = new MemoryMonitor({interval: 100});
 	monitor.start();
 	monitor.start();
@@ -114,6 +115,7 @@ test('start can be called multiple times safely', t => {
 });
 
 test('stop can be called multiple times safely', t => {
+	t.plan(1);
 	const monitor = new MemoryMonitor();
 	monitor.start();
 	monitor.stop();
@@ -122,6 +124,7 @@ test('stop can be called multiple times safely', t => {
 });
 
 test('stop can be called without start', t => {
+	t.plan(1);
 	const monitor = new MemoryMonitor();
 	monitor.stop();
 	t.pass();
@@ -152,21 +155,23 @@ test('emits pressure event when threshold is low', async t => {
 // Symbol.dispose tests
 
 test('Symbol.dispose stops monitoring', t => {
+	t.plan(1);
 	const monitor = new MemoryMonitor({interval: 10});
 	monitor.start();
-	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
+	monitor[Symbol.dispose](); // eslint-disable-line unicorn/no-nonstandard-builtin-properties
 	t.pass();
 });
 
 test('Symbol.dispose can be called multiple times', t => {
+	t.plan(1);
 	const monitor = new MemoryMonitor();
 	monitor.start();
-	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
-	monitor[Symbol.dispose](); // eslint-disable-line no-use-extend-native/no-use-extend-native
+	monitor[Symbol.dispose](); // eslint-disable-line unicorn/no-nonstandard-builtin-properties
+	monitor[Symbol.dispose](); // eslint-disable-line unicorn/no-nonstandard-builtin-properties
 	t.pass();
 });
 
 test('monitor has Symbol.dispose method', t => {
 	const monitor = new MemoryMonitor();
-	t.is(typeof monitor[Symbol.dispose], 'function'); // eslint-disable-line no-use-extend-native/no-use-extend-native
+	t.is(typeof monitor[Symbol.dispose], 'function'); // eslint-disable-line unicorn/no-nonstandard-builtin-properties
 });

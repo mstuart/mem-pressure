@@ -3,7 +3,7 @@ import process from 'node:process';
 /**
 Get a snapshot of current memory usage.
 
-@returns {{rss: number, heapTotal: number, heapUsed: number, external: number, arrayBuffers: number, heapUsedRatio: number}} The memory snapshot.
+@returns {{rss: number, heapTotal: number, heapUsed: number, external: number, arrayBuffers: number, heapUsedRatio: number}} An object with RSS, heap, external, and array buffer memory figures in bytes.
 */
 export function getMemorySnapshot() {
 	const {rss, heapTotal, heapUsed, external, arrayBuffers} = process.memoryUsage();
@@ -27,7 +27,9 @@ export default class MemoryMonitor extends EventTarget {
 	#timer;
 
 	/**
-	@param {object} [options]
+	Create a new memory monitor.
+
+	@param {object} [options] - Configuration options.
 	@param {number} [options.threshold=0.85] - Heap usage ratio (0-1) at which to emit `'pressure'` events.
 	@param {number} [options.interval=5000] - Polling interval in milliseconds.
 	*/
@@ -51,7 +53,7 @@ export default class MemoryMonitor extends EventTarget {
 	/**
 	Start monitoring memory usage.
 
-	@returns {this}
+	@returns {this} The monitor instance, for chaining.
 	*/
 	start() {
 		if (this.#timer) {
@@ -74,7 +76,7 @@ export default class MemoryMonitor extends EventTarget {
 	/**
 	Stop monitoring memory usage.
 
-	@returns {this}
+	@returns {this} The monitor instance, for chaining.
 	*/
 	stop() {
 		if (this.#timer) {
@@ -88,7 +90,7 @@ export default class MemoryMonitor extends EventTarget {
 	/**
 	Dispose of the monitor, stopping any active monitoring.
 	*/
-	[Symbol.dispose]() {
+	[Symbol.dispose]() { // eslint-disable-line unicorn/no-nonstandard-builtin-properties
 		this.stop();
 	}
 }
