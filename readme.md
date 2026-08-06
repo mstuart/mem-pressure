@@ -1,7 +1,16 @@
-# mem-pressure
+<div align="center">
+  <img src="docs/assets/logo.svg" alt="mem-pressure — Monitor Node.js memory usage and emit events when thresholds are exceeded" width="720">
+</div>
 
-> Monitor Node.js memory usage and emit events when thresholds are exceeded
+<p align="center"><strong>Monitor Node.js memory usage and emit events when thresholds are exceeded</strong></p>
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://www.npmjs.com/package/mem-pressure"><img src="https://img.shields.io/npm/v/mem-pressure?label=npm" alt="npm"></a>
+  <img src="https://img.shields.io/badge/node-%E2%89%A520-339933.svg" alt="Node 20+">
+</p>
+
+---
 ## Install
 
 ```sh
