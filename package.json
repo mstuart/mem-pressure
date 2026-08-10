@@ -1,47 +1,47 @@
 {
-	"name": "mem-pressure",
-	"version": "1.0.0",
-	"description": "Monitor Node.js memory usage and emit events when thresholds are exceeded",
-	"license": "MIT",
-	"repository": "mstuart/mem-pressure",
-	"funding": "https://github.com/sponsors/mstuart",
-	"author": {
-		"name": "Mark Stuart",
-		"email": "mstuart@users.noreply.github.com",
-		"url": "https://github.com/mstuart"
-	},
-	"type": "module",
-	"exports": {
-		"types": "./index.d.ts",
-		"default": "./index.js"
-	},
-	"sideEffects": false,
-	"engines": {
-		"node": ">=20"
-	},
-	"scripts": {
-		"check": "ultracite check",
-		"fix": "ultracite fix",
-		"test": "ava && tsd"
-	},
-	"files": [
-		"index.js",
-		"index.d.ts"
-	],
-	"keywords": [
-		"memory",
-		"pressure",
-		"monitor",
-		"heap",
-		"rss",
-		"threshold",
-		"leak",
-		"node"
-	],
-	"devDependencies": {
-		"@biomejs/biome": "2.5.6",
-		"ava": "^7",
-		"tsd": "^0.33",
-		"ultracite": "7.10.2"
-	}
+  "name": "mem-pressure",
+  "version": "1.0.0",
+  "description": "Monitor Node.js memory usage and emit events when thresholds are exceeded",
+  "keywords": [
+    "memory",
+    "pressure",
+    "monitor",
+    "heap",
+    "rss",
+    "threshold",
+    "leak",
+    "node"
+  ],
+  "repository": "mstuart/mem-pressure",
+  "funding": "https://github.com/sponsors/mstuart",
+  "license": "MIT",
+  "author": {
+    "name": "Mark Stuart",
+    "email": "mstuart@users.noreply.github.com",
+    "url": "https://github.com/mstuart"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "test": "ava && tsd"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.6",
+    "ava": "^7",
+    "tsd": "^0.33",
+    "ultracite": "7.10.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

@@ -1,5 +1,8 @@
-import {expectType, expectError} from 'tsd';
-import MemoryMonitor, {getMemorySnapshot, type MemorySnapshot} from './index.js';
+import { expectError, expectType } from "tsd";
+import MemoryMonitor, {
+  getMemorySnapshot,
+  type MemorySnapshot,
+} from "./index.js";
 
 // GetMemorySnapshot
 const snapshot = getMemorySnapshot();
@@ -15,13 +18,13 @@ expectType<number>(snapshot.heapUsedRatio);
 const monitor = new MemoryMonitor();
 expectType<MemoryMonitor>(monitor);
 
-const monitor2 = new MemoryMonitor({threshold: 0.9});
+const monitor2 = new MemoryMonitor({ threshold: 0.9 });
 expectType<MemoryMonitor>(monitor2);
 
-const monitor3 = new MemoryMonitor({interval: 1000});
+const monitor3 = new MemoryMonitor({ interval: 1000 });
 expectType<MemoryMonitor>(monitor3);
 
-const monitor4 = new MemoryMonitor({threshold: 0.8, interval: 2000});
+const monitor4 = new MemoryMonitor({ interval: 2000, threshold: 0.8 });
 expectType<MemoryMonitor>(monitor4);
 
 // Start/stop return this
@@ -29,5 +32,5 @@ expectType<MemoryMonitor>(monitor.start());
 expectType<MemoryMonitor>(monitor.stop());
 
 // Invalid usage
-expectError(new MemoryMonitor({threshold: 'high'}));
-expectError(new MemoryMonitor({interval: 'fast'}));
+expectError(new MemoryMonitor({ threshold: "high" }));
+expectError(new MemoryMonitor({ interval: "fast" }));
