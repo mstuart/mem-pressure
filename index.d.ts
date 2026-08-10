@@ -1,50 +1,48 @@
-export type MemorySnapshot = {
-	/**
-	Resident Set Size in bytes.
-	*/
-	rss: number;
-
-	/**
-	Total size of the allocated heap in bytes.
-	*/
-	heapTotal: number;
-
-	/**
-	Actual memory used during execution in bytes.
-	*/
-	heapUsed: number;
-
-	/**
-	Memory used by C++ objects bound to JavaScript objects in bytes.
-	*/
-	external: number;
-
-	/**
+export interface MemorySnapshot {
+  /**
 	Memory allocated for `ArrayBuffer` and `SharedArrayBuffer` in bytes.
 	*/
-	arrayBuffers: number;
+  arrayBuffers: number;
 
-	/**
+  /**
+	Memory used by C++ objects bound to JavaScript objects in bytes.
+	*/
+  external: number;
+
+  /**
+	Total size of the allocated heap in bytes.
+	*/
+  heapTotal: number;
+
+  /**
+	Actual memory used during execution in bytes.
+	*/
+  heapUsed: number;
+
+  /**
 	Ratio of `heapUsed` to `heapTotal` (0-1).
 	*/
-	heapUsedRatio: number;
-};
-
-export type MemoryMonitorOptions = {
-	/**
-	Heap usage ratio (0-1) at which to emit `'pressure'` events.
-
-	@default 0.85
+  heapUsedRatio: number;
+  /**
+	Resident Set Size in bytes.
 	*/
-	threshold?: number;
+  rss: number;
+}
 
-	/**
+export interface MemoryMonitorOptions {
+  /**
 	Polling interval in milliseconds.
 
 	@default 5000
 	*/
-	interval?: number;
-};
+  interval?: number;
+  /**
+	Heap usage ratio (0-1) at which to emit `'pressure'` events.
+
+	@default 0.85
+	*/
+  threshold?: number;
+}
 
 /**
 A `CustomEvent` emitted when memory pressure is detected.
@@ -73,26 +71,26 @@ monitor.stop();
 ```
 */
 export default class MemoryMonitor extends EventTarget {
-	constructor(options?: MemoryMonitorOptions);
+  constructor(options?: MemoryMonitorOptions);
 
-	/**
+  /**
 	Start monitoring memory usage.
 
 	@returns The monitor instance for chaining.
 	*/
-	start(): this;
+  start(): this;
 
-	/**
+  /**
 	Stop monitoring memory usage.
 
 	@returns The monitor instance for chaining.
 	*/
-	stop(): this;
+  stop(): this;
 
-	/**
+  /**
 	Dispose of the monitor, stopping any active monitoring.
 	*/
-	[Symbol.dispose](): void;
+  [Symbol.dispose](): void;
 }
 
 /**

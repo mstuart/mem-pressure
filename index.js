@@ -1,4 +1,4 @@
-import process from 'node:process';
+import process from "node:process";
 
 /**
 Get a snapshot of current memory usage.
@@ -6,89 +6,92 @@ Get a snapshot of current memory usage.
 @returns {{rss: number, heapTotal: number, heapUsed: number, external: number, arrayBuffers: number, heapUsedRatio: number}} The memory snapshot.
 */
 export function getMemorySnapshot() {
-	const {rss, heapTotal, heapUsed, external, arrayBuffers} = process.memoryUsage();
+  const { rss, heapTotal, heapUsed, external, arrayBuffers } =
+    process.memoryUsage();
 
-	return {
-		rss,
-		heapTotal,
-		heapUsed,
-		external,
-		arrayBuffers,
-		heapUsedRatio: heapUsed / heapTotal,
-	};
+  return {
+    arrayBuffers,
+    external,
+    heapTotal,
+    heapUsed,
+    heapUsedRatio: heapUsed / heapTotal,
+    rss,
+  };
 }
 
 /**
 Monitor Node.js memory usage and emit events when thresholds are exceeded.
 */
 export default class MemoryMonitor extends EventTarget {
-	#threshold;
-	#interval;
-	#timer;
+  #threshold;
+  #interval;
+  #timer;
 
-	/**
+  /**
 	@param {object} [options]
 	@param {number} [options.threshold=0.85] - Heap usage ratio (0-1) at which to emit `'pressure'` events.
 	@param {number} [options.interval=5000] - Polling interval in milliseconds.
 	*/
-	constructor(options = {}) {
-		super();
-		const {threshold = 0.85, interval = 5000} = options;
+  constructor(options = {}) {
+    super();
+    const { threshold = 0.85, interval = 5000 } = options;
 
-		if (typeof threshold !== 'number' || threshold < 0 || threshold > 1) {
-			throw new TypeError('Expected `threshold` to be a number between 0 and 1');
-		}
+    if (typeof threshold !== "number" || threshold < 0 || threshold > 1) {
+      throw new TypeError(
+        "Expected `threshold` to be a number between 0 and 1"
+      );
+    }
 
-		if (typeof interval !== 'number' || interval <= 0) {
-			throw new TypeError('Expected `interval` to be a positive number');
-		}
+    if (typeof interval !== "number" || interval <= 0) {
+      throw new TypeError("Expected `interval` to be a positive number");
+    }
 
-		this.#threshold = threshold;
-		this.#interval = interval;
-		this.#timer = undefined;
-	}
+    this.#threshold = threshold;
+    this.#interval = interval;
+    this.#timer = undefined;
+  }
 
-	/**
+  /**
 	Start monitoring memory usage.
 
 	@returns {this}
 	*/
-	start() {
-		if (this.#timer) {
-			return this;
-		}
+  start() {
+    if (this.#timer) {
+      return this;
+    }
 
-		this.#timer = setInterval(() => {
-			const snapshot = getMemorySnapshot();
+    this.#timer = setInterval(() => {
+      const snapshot = getMemorySnapshot();
 
-			if (snapshot.heapUsedRatio >= this.#threshold) {
-				this.dispatchEvent(new CustomEvent('pressure', {detail: snapshot}));
-			}
-		}, this.#interval);
+      if (snapshot.heapUsedRatio >= this.#threshold) {
+        this.dispatchEvent(new CustomEvent("pressure", { detail: snapshot }));
+      }
+    }, this.#interval);
 
-		this.#timer.unref();
+    this.#timer.unref();
 
-		return this;
-	}
+    return this;
+  }
 
-	/**
+  /**
 	Stop monitoring memory usage.
 
 	@returns {this}
 	*/
-	stop() {
-		if (this.#timer) {
-			clearInterval(this.#timer);
-			this.#timer = undefined;
-		}
+  stop() {
+    if (this.#timer) {
+      clearInterval(this.#timer);
+      this.#timer = undefined;
+    }
 
-		return this;
-	}
+    return this;
+  }
 
-	/**
+  /**
 	Dispose of the monitor, stopping any active monitoring.
 	*/
-	[Symbol.dispose]() {
-		this.stop();
-	}
+  [Symbol.dispose]() {
+    this.stop();
+  }
 }
