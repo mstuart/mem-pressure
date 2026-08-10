@@ -37,9 +37,9 @@
 		"node"
 	],
 	"devDependencies": {
-		"ava": "^7",
+		"ava": "^8",
 		"tsd": "^0.33",
-		"xo": "^1.2"
+		"xo": "^4.0"
 	},
 	"overrides": {
 		"@eslint/plugin-kit": ">=0.3.4"
