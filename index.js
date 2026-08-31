@@ -36,13 +36,22 @@ export default class MemoryMonitor extends EventTarget {
     super();
     const { threshold = 0.85, interval = 5000 } = options;
 
-    if (typeof threshold !== "number" || threshold < 0 || threshold > 1) {
+    if (
+      typeof threshold !== "number" ||
+      !Number.isFinite(threshold) ||
+      threshold < 0 ||
+      threshold > 1
+    ) {
       throw new TypeError(
         "Expected `threshold` to be a number between 0 and 1"
       );
     }
 
-    if (typeof interval !== "number" || interval <= 0) {
+    if (
+      typeof interval !== "number" ||
+      !Number.isFinite(interval) ||
+      interval <= 0
+    ) {
       throw new TypeError("Expected `interval` to be a positive number");
     }
 

@@ -90,6 +90,16 @@ test("constructor throws on interval <= 0", (t) => {
   });
 });
 
+test("constructor rejects non-finite numeric options", (t) => {
+  for (const threshold of [Number.NaN, Number.POSITIVE_INFINITY]) {
+    t.throws(() => new MemoryMonitor({ threshold }), { instanceOf: TypeError });
+  }
+
+  for (const interval of [Number.NaN, Number.POSITIVE_INFINITY]) {
+    t.throws(() => new MemoryMonitor({ interval }), { instanceOf: TypeError });
+  }
+});
+
 // Start/stop tests
 
 test("start returns this for chaining", (t) => {
