@@ -55,6 +55,12 @@ export default class MemoryMonitor extends EventTarget {
       throw new TypeError("Expected `interval` to be a positive number");
     }
 
+    if (interval > 2_147_483_647) {
+      throw new RangeError(
+        "Expected interval to be at most 2147483647 milliseconds"
+      );
+    }
+
     this.#threshold = threshold;
     this.#interval = interval;
     this.#timer = undefined;
