@@ -64,7 +64,7 @@ Heap usage ratio (0-1) at which to emit `'pressure'` events.
 Type: `number`\
 Default: `5000`
 
-Polling interval in milliseconds.
+Polling interval in milliseconds, at most 2147483647. Larger values throw `RangeError` rather than overflow into rapid polling.
 
 #### Events
 

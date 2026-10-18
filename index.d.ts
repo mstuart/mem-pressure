@@ -32,6 +32,7 @@ export interface MemorySnapshot {
 export interface MemoryMonitorOptions {
   /**
 	Polling interval in milliseconds.
+	Must be at most 2147483647; larger intervals throw RangeError.
 
 	@default 5000
 	*/
