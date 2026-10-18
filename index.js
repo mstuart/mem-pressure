@@ -1,5 +1,7 @@
 import process from "node:process";
 
+const maximumTimerInterval = 2_147_483_647;
+
 /**
 Get a snapshot of current memory usage.
 
@@ -55,9 +57,9 @@ export default class MemoryMonitor extends EventTarget {
       throw new TypeError("Expected `interval` to be a positive number");
     }
 
-    if (interval > 2_147_483_647) {
+    if (interval > maximumTimerInterval) {
       throw new RangeError(
-        "Expected interval to be at most 2147483647 milliseconds"
+        `Expected interval to be at most ${maximumTimerInterval} milliseconds`
       );
     }
 
