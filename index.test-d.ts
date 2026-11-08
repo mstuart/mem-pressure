@@ -34,3 +34,14 @@ expectType<MemoryMonitor>(monitor.stop());
 // Invalid usage
 expectError(new MemoryMonitor({ threshold: "high" }));
 expectError(new MemoryMonitor({ interval: "fast" }));
+
+monitor.addEventListener("pressure", (event) => {
+  expectType<MemorySnapshot>(event.detail);
+  expectType<number>(event.detail.heapUsedRatio);
+});
+monitor.removeEventListener("pressure", (event) => {
+  expectType<MemorySnapshot>(event.detail);
+});
+monitor.addEventListener("custom", (event) => {
+  expectType<Event>(event);
+});
