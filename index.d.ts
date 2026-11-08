@@ -74,6 +74,32 @@ monitor.stop();
 export default class MemoryMonitor extends EventTarget {
   constructor(options?: MemoryMonitorOptions);
 
+  addEventListener(
+    type: "pressure",
+    callback:
+      | ((this: MemoryMonitor, event: MemoryPressureEvent) => void)
+      | null,
+    options?: AddEventListenerOptions | boolean
+  ): void;
+  addEventListener(
+    type: string,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: AddEventListenerOptions | boolean
+  ): void;
+
+  removeEventListener(
+    type: "pressure",
+    callback:
+      | ((this: MemoryMonitor, event: MemoryPressureEvent) => void)
+      | null,
+    options?: EventListenerOptions | boolean
+  ): void;
+  removeEventListener(
+    type: string,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: EventListenerOptions | boolean
+  ): void;
+
   /**
 	Start monitoring memory usage.
 
